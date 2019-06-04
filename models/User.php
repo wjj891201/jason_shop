@@ -127,7 +127,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id]);
+        return self::findOne(['userid' => $id]);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)

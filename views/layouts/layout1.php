@@ -35,16 +35,16 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-left'],
                 'items' => [
                         ['label' => '首页', 'url' => ['/index/index']],
-                    Yii::$app->session['isLogin'] == 1 ? (['label' => '我的购物车', 'url' => ['/cart/index']]) : '',
-                    Yii::$app->session['isLogin'] == 1 ? (['label' => '我的订单', 'url' => ['/order/index']]) : '',
+                    !Yii::$app->user->isGuest ? (['label' => '我的购物车', 'url' => ['/cart/index']]) : '',
+                    !Yii::$app->user->isGuest ? (['label' => '我的订单', 'url' => ['/order/index']]) : '',
                 ]
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    Yii::$app->session['isLogin'] != 1 ? (['label' => '注册', 'url' => ['/member/auth']]) : '',
-                    Yii::$app->session['isLogin'] != 1 ? (['label' => '登录', 'url' => ['/member/auth']]) : '',
-                    Yii::$app->session['isLogin'] == 1 ? ('欢迎您回来' . Yii::$app->session['loginname'] . Html::a('退出', ['/member/logout'])) : '',
+                    Yii::$app->user->isGuest ? (['label' => '注册', 'url' => ['/member/auth']]) : '',
+                    Yii::$app->user->isGuest ? (['label' => '登录', 'url' => ['/member/auth']]) : '',
+                    !Yii::$app->user->isGuest ? ('欢迎您回来，' . Yii::$app->user->identity->username . Html::a('退出', ['/member/logout'])) : '',
                 ]
             ]);
             NavBar::end();
