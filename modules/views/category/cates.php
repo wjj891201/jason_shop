@@ -1,6 +1,9 @@
-<link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
-<!-- main container -->
-
+<?php
+$this->title = '分类列表';
+$this->params['breadcrumbs'][] = ['label' => '分类管理', 'url' => ['/admin/category/list']];
+$this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('admin/css/compiled/user-list.css');
+?>
 <div class="container-fluid">
     <div id="pad-wrapper" class="users-list">
         <div class="row-fluid header">
@@ -35,10 +38,6 @@
                         'themes' => [
                             'stripes' => true,
                             'variant' => 'large'
-//                            'name' => 'foobar',
-//                            'url' => "/themes/foobar/js/jstree3/style.css",
-//                            'dots' => true,
-//                            'icons' => false,
                         ]
                     ],
                     'plugins' => [
@@ -60,5 +59,39 @@
         <!-- end users table -->
     </div>
 </div>
+<?php
+$rename = yii\helpers\Url::to(['category/rename']);
+$delete = yii\helpers\Url::to(['category/delete']);
+$csrfvar = Yii::$app->request->csrfParam;
+$csrfval = Yii::$app->request->getCsrfToken();
+$js = <<<JS
+$("#w0").on("rename_node.jstree", function(e, data){
+    var newtext = data.text;
+    var old = data.old;
+    var id = data.node.id;
+    var postData = {
+        '$csrfvar' : '$csrfval',
+        'new' : newtext,
+        'old' : old,
+        'id' : id
+    };
+    $.post('$rename', postData, function(data) {
+        if (data.code != 0) {
+            alert('修改失败');
+            window.location.reload();
+        }
+    });
+}).on("delete_node.jstree", function(e, data){
+    var id = data.node.id;
+    $.get('$delete', {id: id}, function(data){
+        if (data.code != 0) {
+            alert('删除失败:'+data.message);
+            window.location.reload();
+        }
+    });
+})
+JS;
+$this->registerJs($js);
 
-<!-- end main container -->
+
+?>

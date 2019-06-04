@@ -25,7 +25,7 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-                ['parentid', 'required', 'message' => '上级分类不能为空'],
+                ['parentid', 'required', 'message' => '上级分类不能为空', 'except' => 'rename'],
                 ['title', 'required', 'message' => '标题名称不能为空'],
                 ['createtime', 'safe']
         ];

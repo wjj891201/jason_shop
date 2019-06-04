@@ -92,4 +92,62 @@ class CategoryController extends CommonController
         return $this->redirect(['category/list']);
     }
 
+    public function actionRename()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (!Yii::$app->request->isAjax)
+        {
+            throw new \yii\web\MethodNotAllowedHttpException('Access Denied');
+        }
+        $post = Yii::$app->request->post();
+        $newtext = $post['new'];
+        $old = $post['old'];
+        $id = (int) $post['id'];
+        if (empty($newtext) || empty($id))
+        {
+            return ['code' => -1, 'message' => '参数错误', 'data' => []];
+        }
+        if ($old == $newtext)
+        {
+            return ['code' => 0, 'message' => 'ok', 'data' => []];
+        }
+        $model = Category::findOne($id);
+        $model->scenario = 'rename';
+        $model->title = $newtext;
+        if ($model->save())
+        {
+            return ['code' => 0, 'message' => 'ok', 'data' => []];
+        }
+        return ['code' => 1, 'message' => '更新失败', 'data' => []];
+    }
+
+    public function actionDelete()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (!Yii::$app->request->isAjax)
+        {
+            throw new \yii\web\MethodNotAllowedHttpException('Access Denied');
+        }
+        $id = (int) Yii::$app->request->get("id");
+        if (empty($id))
+        {
+            return ['code' => -1, 'message' => '参数错误', 'data' => []];
+        }
+        $cate = Category::findOne($id);
+        if (empty($cate))
+        {
+            return ['code' => -1, 'message' => '参数错误', 'data' => []];
+        }
+        $total = Category::find()->where("parentid = :pid", [":pid" => $id])->count();
+        if ($total > 0)
+        {
+            return ['code' => 1, 'message' => '该分类下包含子类，不允许删除', 'data' => []];
+        }
+        if ($cate->delete())
+        {
+            return ['code' => 0, 'message' => 'ok', 'data' => []];
+        }
+        return ['code' => 1, 'message' => '删除失败', 'data' => []];
+    }
+
 }
