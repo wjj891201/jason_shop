@@ -2,10 +2,13 @@
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-?>
-<link rel="stylesheet" href="/admin/css/compiled/new-user.css" type="text/css" media="screen" />
-<!-- main container -->
 
+$this->title = '添加分类';
+$this->params['breadcrumbs'][] = ['label' => '分类管理', 'url' => ['/admin/category/index']];
+$this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('admin/css/compiled/new-user.css');
+?>
+<!-- main container -->
 <div class="container-fluid">
     <div id="pad-wrapper" class="new-user">
         <div class="row-fluid header">

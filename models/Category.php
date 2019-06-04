@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 
 class Category extends ActiveRecord
 {
+
     public static function tableName()
     {
         return "{{%category}}";
@@ -24,16 +25,17 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            ['parentid', 'required', 'message' => '上级分类不能为空'],
-            ['title', 'required', 'message' => '标题名称不能为空'],
-            ['createtime', 'safe']
+                ['parentid', 'required', 'message' => '上级分类不能为空'],
+                ['title', 'required', 'message' => '标题名称不能为空'],
+                ['createtime', 'safe']
         ];
     }
 
     public function add($data)
     {
         $data['Category']['createtime'] = time();
-        if ($this->load($data) && $this->save()) {
+        if ($this->load($data) && $this->save())
+        {
             return true;
         }
         return false;
@@ -49,8 +51,10 @@ class Category extends ActiveRecord
     public function getTree($cates, $pid = 0)
     {
         $tree = [];
-        foreach($cates as $cate) {
-            if ($cate['parentid'] == $pid) {
+        foreach ($cates as $cate)
+        {
+            if ($cate['parentid'] == $pid)
+            {
                 $tree[] = $cate;
                 $tree = array_merge($tree, $this->getTree($cates, $cate['cateid']));
             }
@@ -63,17 +67,21 @@ class Category extends ActiveRecord
         $tree = [];
         $num = 1;
         $prefix = [0 => 1];
-        while($val = current($data)) {
+        while ($val = current($data))
+        {
             $key = key($data);
-            if ($key > 0) {
-                if ($data[$key - 1]['parentid'] != $val['parentid']) {
+            if ($key > 0)
+            {
+                if ($data[$key - 1]['parentid'] != $val['parentid'])
+                {
                     $num ++;
                 }
             }
-            if (array_key_exists($val['parentid'], $prefix)) {
+            if (array_key_exists($val['parentid'], $prefix))
+            {
                 $num = $prefix[$val['parentid']];
             }
-            $val['title'] = str_repeat($p, $num).$val['title'];
+            $val['title'] = str_repeat($p, $num) . $val['title'];
             $prefix[$val['parentid']] = $num;
             $tree[] = $val;
             next($data);
@@ -87,7 +95,8 @@ class Category extends ActiveRecord
         $tree = $this->getTree($data);
         $tree = $this->setPrefix($tree);
         $options = ['添加顶级分类'];
-        foreach($tree as $cate) {
+        foreach ($tree as $cate)
+        {
             $options[$cate['cateid']] = $cate['title'];
         }
         return $options;
@@ -104,11 +113,64 @@ class Category extends ActiveRecord
     {
         $top = self::find()->where('parentid = :pid', [":pid" => 0])->limit(11)->orderby('createtime asc')->asArray()->all();
         $data = [];
-        foreach((array)$top as $k=>$cate) {
+        foreach ((array) $top as $k => $cate)
+        {
             $cate['children'] = self::find()->where("parentid = :pid", [":pid" => $cate['cateid']])->limit(10)->asArray()->all();
             $data[$k] = $cate;
         }
         return $data;
+    }
+
+    /**
+     * getChild 递归查询所有子类数据
+     *
+     */
+    public function getChild($pid)
+    {
+        $data = self::find()->where('parentid = :pid', [":pid" => $pid])->all();
+        if (empty($data))
+        {
+            return [];
+        }
+        $children = [];
+        foreach ($data as $child)
+        {
+            $children[] = [
+                "id" => $child->cateid,
+                "text" => $child->title,
+                "children" => $this->getChild($child->cateid)
+            ];
+        }
+        return $children;
+    }
+
+    /**
+     * 查询所有的顶级分类
+     *
+     */
+    public function getPrimaryCate()
+    {
+        $data = self::find()->where("parentid = :pid", [":pid" => 0]);
+        if (empty($data))
+        {
+            return [];
+        }
+        $pages = new \yii\data\Pagination(['totalCount' => $data->count(), 'pageSize' => '10']);
+        $data = $data->orderBy('createtime desc')->offset($pages->offset)->limit($pages->limit)->all();
+        if (empty($data))
+        {
+            return [];
+        }
+        $primary = [];
+        foreach ($data as $cate)
+        {
+            $primary[] = [
+                'id' => $cate->cateid,
+                'text' => $cate->title,
+                'children' => $this->getChild($cate->cateid)
+            ];
+        }
+        return ['data' => $primary, 'pages' => $pages];
     }
 
 }

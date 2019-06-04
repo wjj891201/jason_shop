@@ -1,5 +1,6 @@
 <?php
 
+use yii\widgets\Breadcrumbs;
 use app\assets\AdminAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -215,6 +216,12 @@ AdminAsset::register($this);
         </div>
         <!-- end sidebar -->
         <div class="content">
+            <?=
+            Breadcrumbs::widget([
+                'homeLink' => ['label' => '首页', 'url' => '/admin/default/index'],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
+            ])
+            ?>
             <?= $content; ?>
         </div>
         <?php

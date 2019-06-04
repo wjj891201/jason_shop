@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
 <!-- main container -->
 
-
 <div class="container-fluid">
     <div id="pad-wrapper" class="users-list">
         <div class="row-fluid header">
@@ -13,7 +12,6 @@
                 </a>
             </div>
         </div>
-
         <?php
         if (Yii::$app->session->hasFlash('info'))
         {
@@ -22,45 +20,42 @@
         ?>
         <!-- Users table -->
         <div class="row-fluid table">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="span3 sortable">
-                            <span class="line"></span>分类ID
-                        </th>
-                        <th class="span3 sortable">
-                            <span class="line"></span>分类名称
-                        </th>
-                        <th class="span3 sortable align-right">
-                            <span class="line"></span>操作
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- row -->
-                    <?php foreach ($cates as $cate): ?>
-                        <tr class="first">
-                            <td>
-                                <?php echo $cate['cateid'] ?>
-                            </td>
-                            <td>
-                                <?php echo $cate['title']; ?>
-                            </td>
-                            <td class="align-right">
-                                <a href="<?php echo yii\helpers\Url::to(['category/mod', 'cateid' => $cate['cateid']]); ?>">编辑</a>
-                                <a href="<?php echo yii\helpers\Url::to(['category/del', 'cateid' => $cate['cateid']]); ?>">删除</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <?=
+            \yiidreamteam\jstree\JsTree::widget([
+                'containerOptions' => [
+                    'class' => 'data-tree',
+                ],
+                'jsOptions' => [
+                    'core' => [
+                        'check_callback' => true,
+                        'multiple' => false,
+                        'data' => [
+                            'url' => \yii\helpers\Url::to(['category/tree', "page" => $page, "per-page" => $perpage]),
+                        ],
+                        'themes' => [
+                            'stripes' => true,
+                            'variant' => 'large'
+//                            'name' => 'foobar',
+//                            'url' => "/themes/foobar/js/jstree3/style.css",
+//                            'dots' => true,
+//                            'icons' => false,
+                        ]
+                    ],
+                    'plugins' => [
+                        'contextmenu', 'dnd', 'search', 'state', 'types', 'wholerow'
+                    ]
+                ]
+            ])
+            ?>
         </div>
         <div class="pagination pull-right">
-            <?php /* echo yii\widgets\LinkPager::widget([
-              'pagination' => $pager,
-              'prevPageLabel' => '&#8249;',
-              'nextPageLabel' => '&#8250;',
-              ]); */ ?>
+            <?=
+            yii\widgets\LinkPager::widget([
+                'pagination' => $pager,
+                'prevPageLabel' => '&#8249;',
+                'nextPageLabel' => '&#8250;',
+            ]);
+            ?>
         </div>
         <!-- end users table -->
     </div>

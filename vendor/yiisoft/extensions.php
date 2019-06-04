@@ -75,4 +75,13 @@ return array (
       '@dzer/express' => $vendorDir . '/dzer/yii2-express/src',
     ),
   ),
+  'yii-dream-team/yii2-jstree' => 
+  array (
+    'name' => 'yii-dream-team/yii2-jstree',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@yiidreamteam/jstree' => $vendorDir . '/yii-dream-team/yii2-jstree/src',
+    ),
+  ),
 );

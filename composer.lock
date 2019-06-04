@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "7f90889449283cec7f6d1875913552b6",
-    "content-hash": "9cc7d3952a4c60ede22ec8126e5baaf4",
+    "content-hash": "21060fe1dca179208debdf3c6144ef54",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -134,6 +133,56 @@
             ]
         },
         {
+            "name": "bower-asset/jstree",
+            "version": "3.3.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vakata/jstree.git",
+                "reference": "c9d7c1425f2272c5400536fa631eba8657522ecf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vakata/jstree/zipball/c9d7c1425f2272c5400536fa631eba8657522ecf",
+                "reference": "c9d7c1425f2272c5400536fa631eba8657522ecf",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.1"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./dist/jstree.js",
+                    "./dist/themes/default/style.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "docs",
+                    "demo",
+                    "libs",
+                    "node_modules",
+                    "test",
+                    "libs",
+                    "jstree.jquery.json",
+                    "gruntfile.js",
+                    "package.json",
+                    "bower.json",
+                    "component.json",
+                    "LICENCE-MIT",
+                    "README.md"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "keywords": [
+                "jstree",
+                "tree",
+                "ui"
+            ],
+            "time": "2019-04-28T21:22:05+00:00"
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -205,7 +254,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/cebe/markdown/54a2c49de31cc44e864ebf0500a35ef21d0010b2.zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/54a2c49de31cc44e864ebf0500a35ef21d0010b2",
                 "reference": "54a2c49de31cc44e864ebf0500a35ef21d0010b2",
                 "shasum": ""
             },
@@ -253,20 +302,20 @@
                 "markdown",
                 "markdown-extra"
             ],
-            "time": "2015-03-06 05:28:07"
+            "time": "2015-03-06T05:28:07+00:00"
         },
         {
             "name": "crazyfd/yii2-qiniu",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/crazyfd/yii2-qiniu.git",
-                "reference": "2b6f7a069d395358ec8d78f187df672106b8708c"
+                "url": "https://github.com/crazyfd/upload.git",
+                "reference": "9deca0ee51bbf8e1462b919208b03cef02f2b013"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/crazyfd/yii2-qiniu/2b6f7a069d395358ec8d78f187df672106b8708c.zip",
-                "reference": "2b6f7a069d395358ec8d78f187df672106b8708c",
+                "url": "https://api.github.com/repos/crazyfd/upload/zipball/9deca0ee51bbf8e1462b919208b03cef02f2b013",
+                "reference": "9deca0ee51bbf8e1462b919208b03cef02f2b013",
                 "shasum": ""
             },
             "require": {
@@ -294,7 +343,7 @@
                 "upload",
                 "yii"
             ],
-            "time": "2015-01-27 01:11:25"
+            "time": "2018-12-04T06:03:28+00:00"
         },
         {
             "name": "dzer/yii2-express",
@@ -306,7 +355,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/dzer/yii2-express/b869dc7a5efb454604c0a39279180bb4ee194b51.zip",
+                "url": "https://api.github.com/repos/dzer/yii2-express/zipball/b869dc7a5efb454604c0a39279180bb4ee194b51",
                 "reference": "b869dc7a5efb454604c0a39279180bb4ee194b51",
                 "shasum": ""
             },
@@ -336,7 +385,7 @@
                 "yii2",
                 "快递"
             ],
-            "time": "2016-06-17 03:09:37"
+            "time": "2016-06-17T03:09:37+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -348,7 +397,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/ezyang/htmlpurifier/ae1828d955112356f7677c465f94f7deb7d27a40.zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
                 "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
                 "shasum": ""
             },
@@ -380,7 +429,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2015-08-05 01:03:42"
+            "time": "2015-08-05T01:03:42+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -392,7 +441,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/swiftmailer/swiftmailer/d8db871a54619458a805229a057ea2af33c753e8.zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
                 "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
@@ -433,7 +482,52 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-05-01T08:45:47+00:00"
+        },
+        {
+            "name": "yii-dream-team/yii2-jstree",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yii-dream-team/yii2-jstree.git",
+                "reference": "42f46369fb504a2278b06ada6c120068a27f3460"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yii-dream-team/yii2-jstree/zipball/42f46369fb504a2278b06ada6c120068a27f3460",
+                "reference": "42f46369fb504a2278b06ada6c120068a27f3460",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jstree": "~3",
+                "yiisoft/yii2": "~2"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yiidreamteam\\jstree\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Samoylov",
+                    "email": "alexey.samoylov@gmail.com",
+                    "homepage": "http://yiiblog.ru",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 JsTree assets and widget",
+            "homepage": "http://yiidreamteam.com/yii2/jstree",
+            "keywords": [
+                "jstree",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-01-06T20:04:57+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -445,7 +539,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-framework/53992b136b993e32ca7b6f399cf42b143f8685a6.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/53992b136b993e32ca7b6f399cf42b143f8685a6",
                 "reference": "53992b136b993e32ca7b6f399cf42b143f8685a6",
                 "shasum": ""
             },
@@ -527,7 +621,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-04-28 14:50:20"
+            "time": "2016-04-28T14:50:20+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -539,7 +633,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-bootstrap/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
                 "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
                 "shasum": ""
             },
@@ -577,7 +671,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2016-03-17 03:29:28"
+            "time": "2016-03-17T03:29:28+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -589,7 +683,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-composer/7452fd908a5023b8bb5ea1b123a174ca080de464.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/7452fd908a5023b8bb5ea1b123a174ca080de464",
                 "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464",
                 "shasum": ""
             },
@@ -624,7 +718,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2016-02-06 00:49:24"
+            "time": "2016-02-06T00:49:24+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -636,7 +730,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-swiftmailer/e2c6315caff30a9271a7afad4d684627721dc69a.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/e2c6315caff30a9271a7afad4d684627721dc69a",
                 "reference": "e2c6315caff30a9271a7afad4d684627721dc69a",
                 "shasum": ""
             },
@@ -674,7 +768,7 @@
                 "swiftmailer",
                 "yii2"
             ],
-            "time": "2016-03-17 03:58:49"
+            "time": "2016-03-17T03:58:49+00:00"
         }
     ],
     "packages-dev": [
@@ -751,7 +845,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2016-04-29 12:21:54"
+            "time": "2016-04-29T12:21:54+00:00"
         },
         {
             "name": "phpspec/php-diff",
@@ -789,7 +883,7 @@
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
-            "time": "2016-04-07 12:29:16"
+            "time": "2016-04-07T12:29:16+00:00"
         },
         {
             "name": "yiisoft/yii2-codeception",
@@ -834,7 +928,7 @@
                 "codeception",
                 "yii2"
             ],
-            "time": "2016-03-17 03:41:26"
+            "time": "2016-03-17T03:41:26+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -881,7 +975,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2016-03-17 03:50:19"
+            "time": "2016-03-17T03:50:19+00:00"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -928,7 +1022,7 @@
                 "faker",
                 "yii2"
             ],
-            "time": "2015-03-01 06:22:44"
+            "time": "2015-03-01T06:22:44+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -981,7 +1075,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2016-03-18 14:09:46"
+            "time": "2016-03-18T14:09:46+00:00"
         }
     ],
     "aliases": [],
