@@ -1,69 +1,71 @@
+<?php
+
+use app\assets\AppAsset;
+use yii\helpers\Html;
+use yii\bootstrap\NavBar;
+use yii\bootstrap\Nav;
+
+AppAsset::register($this);
+?>
+<?php $this->beginPage(); ?>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="<?php echo Yii::$app->language; ?>">
     <head>
         <!-- Meta -->
-        <meta charset="utf-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="robots" content="all">
-
-        <title>商品分类 - 慕课商城</title>
-
-        <!-- Bootstrap Core CSS -->
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-
-        <!-- Customizable CSS -->
-        <link rel="stylesheet" href="/assets/css/main.css">
-        <link rel="stylesheet" href="/assets/css/red.css">
-        <link rel="stylesheet" href="/assets/css/owl.carousel.css">
-        <link rel="stylesheet" href="/assets/css/owl.transitions.css">
-        <link rel="stylesheet" href="/assets/css/animate.min.css">
-
-
-        <!-- Icons/Glyphs -->
-        <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-
+        <meta charset="<?php echo Yii::$app->charset; ?>">
+        <?php
+        $this->registerMetaTag(['http-equiv' => 'Content-Type', 'content' => 'text/html; charset=UTF-8']);
+        $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0, user-scalable=no']);
+        $this->registerMetaTag(['name' => 'description', 'content' => 'this is yii framework project']);
+        $this->registerMetaTag(['name' => 'author', 'content' => 'Jason']);
+        $this->registerMetaTag(['name' => 'keywords', 'content' => 'Jason, yii2, assets']);
+        $this->registerMetaTag(['name' => 'robots', 'content' => 'all']);
+        ?>
+        <title><?php echo Html::encode($this->title); ?>-慕课商城</title>
+        <?php $this->head(); ?>
         <!-- Favicon -->
-        <link rel="shortcut icon" href="/assets/images/favicon.ico">
-
-        <!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
-        <!--[if lt IE 9]>
-                <script src="/assets/js/html5shiv.js"></script>
-                <script src="/assets/js/respond.min.js"></script>
-        <![endif]-->
-
+        <link rel="shortcut icon" href="/images/favicon.ico">	
     </head>
     <body>
 
         <div class="wrapper">
             <!-- ============================================================= TOP NAVIGATION ============================================================= -->
-            <nav class="top-bar animate-dropdown">
-                <div class="container">
-                    <div class="col-xs-12 col-sm-6 no-margin">
-                        <ul>
-                            <li><a href="<?php echo yii\helpers\Url::to(['index/index']) ?>">首页</a></li>
-                            <?php if (\Yii::$app->session['isLogin'] == 1): ?>
-                                <li><a href="<?php echo yii\helpers\Url::to(['cart/index']) ?>">我的购物车</a></li>
-                                <li><a href="<?php echo yii\helpers\Url::to(['order/index']) ?>">我的订单</a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </div><!-- /.col -->
+            <?php
+            NavBar::begin([
+                'options' => [
+                    "class" => "top-bar animate-dropdown",
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-left'],
+                'items' => [
+                        ['label' => '首页', 'url' => ['/index/index']],
+                    \Yii::$app->session['isLogin'] == 1 ? (
+                                ['label' => '我的购物车', 'url' => ['/cart/index']]
+                            ) : '',
+                    \Yii::$app->session['isLogin'] == 1 ? (
+                                ['label' => '我的订单', 'url' => ['/order/index']]
+                            ) : '',
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    \Yii::$app->session['isLogin'] != 1 ? (
+                                ['label' => '注册', 'url' => ['/member/auth']]
+                            ) : '',
+                    \Yii::$app->session['isLogin'] != 1 ? (
+                                ['label' => '登录', 'url' => ['/member/auth']]
+                            ) : '',
+                    \Yii::$app->session['isLogin'] == 1 ? (
+                            '欢迎您回来，' . \Yii::$app->session['loginname'] . ' , ' .
+                            Html::a('退出', ['/member/logout'])
+                            ) : '',
+                ],
+            ]);
+            NavBar::end();
+            ?>
 
-                    <div class="col-xs-12 col-sm-6 no-margin">
-                        <ul class="right">
-                            <?php if (\Yii::$app->session['isLogin'] == 1): ?>
-                                您好 , 欢迎您回来 <?php echo \Yii::$app->session['loginname']; ?> , <a href="<?php echo yii\helpers\Url::to(['member/logout']); ?>">退出</a>
-                            <?php else: ?>
-                                <li><a href="<?php echo yii\helpers\Url::to(['member/auth']); ?>">注册</a></li>
-                                <li><a href="<?php echo yii\helpers\Url::to(['member/auth']); ?>">登录</a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </div><!-- /.col -->
-                </div><!-- /.container -->
-            </nav><!-- /.top-bar -->
             <!-- ============================================================= TOP NAVIGATION : END ============================================================= -->		<!-- ============================================================= HEADER ============================================================= -->
             <header>
                 <div class="container no-padding">
@@ -72,7 +74,7 @@
                         <!-- ============================================================= LOGO ============================================================= -->
                         <div class="logo">
                             <a href="<?php echo yii\helpers\Url::to(['index/index']) ?>">
-                                <img alt="logo" src="/assets/images/logo.PNG" width="233" height="54"/>
+                                <img alt="logo" src="/images/logo.PNG" width="233" height="54"/>
                             </a>
                         </div><!-- /.logo -->
                         <!-- ============================================================= LOGO : END ============================================================= -->		</div><!-- /.logo-holder -->
@@ -125,7 +127,7 @@
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                         <div class="basket-item-count">
                                             <span class="count"><?php echo count($this->params['cart']['products']) ?></span>
-                                            <img src="/assets/images/icon-cart.png" alt="" />
+                                            <img src="/images/icon-cart.png" alt="" />
                                         </div>
 
                                         <div class="total-price-basket"> 
@@ -336,7 +338,7 @@
                             <!-- ============================================================= CONTACT INFO ============================================================= -->
                             <div class="contact-info">
                                 <div class="footer-logo">
-                                    <img alt="logo" src="/assets/images/logo.PNG" width="233" height="54"/>
+                                    <img alt="logo" src="/images/logo.PNG" width="233" height="54"/>
                                 </div><!-- /.footer-logo -->
 
                                 <p class="regular-bold"> 请通过电话，电子邮件随时联系我们</p>
@@ -410,10 +412,10 @@
                         <div class="col-xs-12 col-sm-6 no-margin">
                             <div class="payment-methods ">
                                 <ul>
-                                    <li><img alt="" src="/assets/images/payments/payment-visa.png"></li>
-                                    <li><img alt="" src="/assets/images/payments/payment-master.png"></li>
-                                    <li><img alt="" src="/assets/images/payments/payment-paypal.png"></li>
-                                    <li><img alt="" src="/assets/images/payments/payment-skrill.png"></li>
+                                    <li><img alt="" src="/images/payments/payment-visa.png"></li>
+                                    <li><img alt="" src="/images/payments/payment-master.png"></li>
+                                    <li><img alt="" src="/images/payments/payment-paypal.png"></li>
+                                    <li><img alt="" src="/images/payments/payment-skrill.png"></li>
                                 </ul>
                             </div><!-- /.payment-methods -->
                         </div>
@@ -424,51 +426,37 @@
 
             <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
 
-        <!-- JavaScripts placed at the end of the document so the pages load faster -->
-        <script src="/assets/js/jquery-1.10.2.min.js"></script>
-        <script src="/assets/js/jquery-migrate-1.2.1.js"></script>
-        <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/gmap3.min.js"></script>
-        <script src="/assets/js/bootstrap-hover-dropdown.min.js"></script>
-        <script src="/assets/js/owl.carousel.min.js"></script>
-        <script src="/assets/js/css_browser_selector.min.js"></script>
-        <script src="/assets/js/echo.min.js"></script>
-        <script src="/assets/js/jquery.easing-1.3.min.js"></script>
-        <script src="/assets/js/bootstrap-slider.min.js"></script>
-        <script src="/assets/js/jquery.raty.min.js"></script>
-        <script src="/assets/js/jquery.prettyPhoto.min.js"></script>
-        <script src="/assets/js/jquery.customSelect.min.js"></script>
-        <script src="/assets/js/wow.min.js"></script>
-        <script src="/assets/js/scripts.js"></script>
-
-        <script>
-            $("#createlink").click(function () {
-                $(".billing-address").slideDown();
-            });
-            $("li.disabled").hide();
-            $(".expressshow").hide();
-            $(".express").click(function (e) {
-                e.preventDefault();
-            });
-            $(".express").hover(function () {
-                var a = $(this);
-                if ($(this).attr('data') != 'ok') {
-                    $.get('<?php echo yii\helpers\Url::to(['order/getexpress']) ?>', {'expressno': $(this).attr('data')}, function (res) {
+        <!--
+            <script>
+                $("#createlink").click(function(){
+                    $(".billing-address").slideDown();
+                });
+                $("li.disabled").hide();
+                $(".expressshow").hide();
+                $(".express").click(function(e){
+                    e.preventDefault();
+                });
+                $(".express").hover(function(){
+                    var a = $(this);
+                    if ($(this).attr('data') != 'ok') {
+                    $.get('<?php echo yii\helpers\Url::to(['order/getexpress']) ?>', {'expressno':$(this).attr('data')}, function(res) {
                         var str = "";
                         if (res.message = 'ok') {
-                            for (var i = 0; i < res.data.length; i++) {
-                                str += "<p>" + res.data[i].context + " " + res.data[i].time + " </p>";
+                            for(var i = 0;i<res.data.length;i++) {
+                                str += "<p>"+res.data[i].context+" "+res.data[i].time+" </p>";
                             }
                         }
                         a.find(".expressshow").html(str);
                         a.attr('data', 'ok');
                     }, 'json');
-                }
-                $(this).find(".expressshow").show();
-            }, function () {
-                $(this).find(".expressshow").hide();
-            });
-        </script>
-
+                    }
+                    $(this).find(".expressshow").show();
+                }, function(){
+                    $(this).find(".expressshow").hide();
+                });
+            </script>
+        -->
+        <?php $this->endBody(); ?>
     </body>
 </html>
+<?php $this->endPage(); ?>
