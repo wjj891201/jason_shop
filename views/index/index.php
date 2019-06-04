@@ -1,3 +1,13 @@
+<?php
+
+use yii\helpers\Url;
+
+$this->title = '首页';
+$this->params['breadcrumbs'][] = $this->title;
+$this->registerMetaTag(['name' => 'keywords', 'content' => '']);
+$this->registerMetaTag(['name' => 'description', 'content' => ''], 'description');
+?>
+
 <!-- ============================================================= HEADER : END ============================================================= -->		<div id="top-banner-and-menu">
     <div class="container">
 
@@ -7,11 +17,9 @@
                 <div class="head"><i class="fa fa-list"></i> 所有分类 </div>        
                 <nav class="yamm megamenu-horizontal" role="navigation">
                     <ul class="nav">
-                        <?php
-                        foreach ($this->params['menu'] as $top) :
-                            ?>
+                        <?php foreach ($this->params['menu'] as $top): ?>
                             <li class="dropdown menu-item">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $top['title'] ?></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $top['title'] ?></a>
                                 <ul class="dropdown-menu mega-menu">
                                     <li class="yamm-content">
                                         <!-- ================================== MEGAMENU VERTICAL ================================== -->
@@ -19,21 +27,19 @@
                                             <div class="col-xs-12 col-lg-4">
                                                 <ul>
                                                     <?php foreach ($top['children'] as $child): ?>
-                                                        <li><a href="<?php echo yii\helpers\Url::to(['product/index', 'cateid' => $child['cateid']]) ?>"><?php echo $child['title'] ?></a></li>
+                                                        <li><a href="<?= Url::to(['product/index', 'cateid' => $child['cateid']]) ?>"><?= $child['title'] ?></a></li>
                                                     <?php endforeach; ?>
                                                 </ul>
                                             </div>
                                             <div class="dropdown-banner-holder">
-                                                <a href="#"><img alt="" src="/assets/images/banners/banner-side.png" /></a>
+                                                <a href="#"><img alt="" src="/images/banners/banner-side.png" /></a>
                                             </div>
                                         </div>
                                         <!-- ================================== MEGAMENU VERTICAL ================================== -->                        
                                     </li>
                                 </ul>
                             </li><!-- /.menu-item -->
-                            <?php
-                        endforeach;
-                        ?>
+                        <?php endforeach; ?>
                         <!--<li><a href="http://themeforest.net/item/media-center-electronic-ecommerce-html-template/8178892?ref=shaikrilwan">Buy this Theme</a></li>-->
                     </ul><!-- /.nav -->
                 </nav><!-- /.megamenu-horizontal -->
@@ -46,7 +52,7 @@
             <div id="hero">
                 <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
 
-                    <div class="item" style="background-image: url(/assets/images/sliders/slider01.jpg);">
+                    <div class="item" style="background-image: url(/images/sliders/slider01.jpg);">
                         <div class="container-fluid">
                             <div class="caption vertical-center text-left">
                                 <div class="big-text fadeInDown-1">
@@ -68,7 +74,7 @@
                         </div><!-- /.container-fluid -->
                     </div><!-- /.item -->
 
-                    <!--<div class="item" style="background-image: url(/assets/images/sliders/slider02.jpg);">
+                    <!--<div class="item" style="background-image: url(/images/sliders/slider02.jpg);">
                             <div class="container-fluid">
                                     <div class="caption vertical-center text-left">
                                             <div class="big-text fadeInDown-1">
@@ -106,7 +112,7 @@
                     <h1 style="font-family:'Microsoft Yahei';">尝尝鲜</h1>
                     <span class="tagline">查看最新分类</span>
                 </div>
-                <img class="banner-image" alt="" src="/assets/images/blank.gif" data-echo="/assets/images/banners/banner-narrow-01.jpg" />
+                <img class="banner-image" alt="" src="/images/blank.gif" data-echo="/images/banners/banner-narrow-01.jpg" />
             </a>
         </div>
         <div class="col-xs-12 col-lg-6 no-margin text-right banner">
@@ -115,7 +121,7 @@
                     <h1 style="font-family:'Microsoft Yahei';">时尚流行</h1>
                     <span class="tagline">查看最新上架</span>
                 </div>
-                <img class="banner-image" alt="" src="/assets/images/blank.gif" data-echo="/assets/images/banners/banner-narrow-02.jpg" />
+                <img class="banner-image" alt="" src="/images/blank.gif" data-echo="/images/banners/banner-narrow-02.jpg" />
             </a>
         </div>
     </div><!-- /.container -->
@@ -146,21 +152,21 @@
                                     <?php endif; ?>
 
                                     <div class="image">
-                                        <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                        <img alt="<?= $pro->title ?>" src="<?= $pro->cover ?>-covermiddle" data-echo="<?= $pro->cover ?>-covermiddle" />
                                     </div>
                                     <div class="body">
                                         <div class="title">
-                                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                            <a href="<?= Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?= $pro->title ?></a>
                                         </div>
                                     </div>
                                     <div class="prices">
-                                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                                        <div class="price-current pull-right">￥<?php echo $pro->saleprice ?></div>
+                                        <div class="price-prev">￥<?= $pro->price ?></div>
+                                        <div class="price-current pull-right">￥<?= $pro->saleprice ?></div>
                                     </div>
 
                                     <div class="hover-area">
                                         <div class="add-cart-button">
-                                            <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                            <a href="<?= Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
                                         </div>
                                     </div>
                                 </div>
@@ -187,21 +193,21 @@
                                     <?php endif; ?>
 
                                     <div class="image">
-                                        <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                        <img alt="<?= $pro->title ?>" src="<?= $pro->cover ?>-covermiddle" data-echo="<?= $pro->cover ?>-covermiddle" />
                                     </div>
                                     <div class="body">
                                         <div class="title">
-                                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                            <a href="<?= Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?= $pro->title ?></a>
                                         </div>
                                     </div>
                                     <div class="prices">
-                                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                                        <div class="price-current pull-right">￥<?php echo $pro->saleprice ?></div>
+                                        <div class="price-prev">￥<?= $pro->price ?></div>
+                                        <div class="price-current pull-right">￥<?= $pro->saleprice ?></div>
                                     </div>
 
                                     <div class="hover-area">
                                         <div class="add-cart-button">
-                                            <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                            <a href="<?= Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
                                         </div>
                                     </div>
                                 </div>
@@ -229,21 +235,21 @@
                                     <?php endif; ?>
 
                                     <div class="image">
-                                        <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                        <img alt="<?= $pro->title ?>" src="<?= $pro->cover ?>-covermiddle" data-echo="<?= $pro->cover ?>-covermiddle" />
                                     </div>
                                     <div class="body">
                                         <div class="title">
-                                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                            <a href="<?= Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?= $pro->title ?></a>
                                         </div>
                                     </div>
                                     <div class="prices">
-                                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                                        <div class="price-current pull-right">￥<?php echo $pro->saleprice ?></div>
+                                        <div class="price-prev">￥<?= $pro->price ?></div>
+                                        <div class="price-current pull-right">￥<?= $pro->saleprice ?></div>
                                     </div>
 
                                     <div class="hover-area">
                                         <div class="add-cart-button">
-                                            <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                            <a href="<?= Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
                                         </div>
                                     </div>
                                 </div>
@@ -276,20 +282,20 @@
                         <div class="col-xs-12 col-sm-4 no-margin product-item-holder size-medium hover">
                             <div class="product-item">
                                 <div class="image">
-                                    <img alt="<?php echo $data['all'][$i]->title ?>" src="<?php echo $data['all'][$i]->cover ?>-covermiddle" data-echo="<?php echo $data['all'][$i]->cover ?>-covermiddle" />
+                                    <img alt="<?= $data['all'][$i]->title ?>" src="<?= $data['all'][$i]->cover ?>-covermiddle" data-echo="<?= $data['all'][$i]->cover ?>-covermiddle" />
                                 </div>
                                 <div class="body">
                                     <div class="label-discount clear"></div>
                                     <div class="title">
-                                        <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $data['all'][$i]->productid]); ?>"><?php echo $data['all'][$i]->title ?></a>
+                                        <a href="<?= Url::to(['product/detail', 'productid' => $data['all'][$i]->productid]); ?>"><?= $data['all'][$i]->title ?></a>
                                     </div>
                                 </div>
                                 <div class="prices">
-                                    <div class="price-current text-right">￥<?php echo $data['all'][$i]->saleprice ?></div>
+                                    <div class="price-current text-right">￥<?= $data['all'][$i]->saleprice ?></div>
                                 </div>
                                 <div class="hover-area">
                                     <div class="add-cart-button">
-                                        <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $data['all'][$i]->productid]) ?>" class="le-button">加入购物车</a>
+                                        <a href="<?= Url::to(['cart/add', 'productid' => $data['all'][$i]->productid]) ?>" class="le-button">加入购物车</a>
                                     </div>
                                 </div>
                             </div>
@@ -303,20 +309,20 @@
                         <div class="col-xs-12 col-sm-4 no-margin product-item-holder size-medium hover">
                             <div class="product-item">
                                 <div class="image">
-                                    <img alt="<?php echo $data['all'][$i]->title ?>" src="<?php echo $data['all'][$i]->cover ?>-covermiddle" data-echo="<?php echo $data['all'][$i]->cover ?>-covermiddle" />
+                                    <img alt="<?= $data['all'][$i]->title ?>" src="<?= $data['all'][$i]->cover ?>-covermiddle" data-echo="<?= $data['all'][$i]->cover ?>-covermiddle" />
                                 </div>
                                 <div class="body">
                                     <div class="label-discount clear"></div>
                                     <div class="title">
-                                        <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $data['all'][$i]->productid]); ?>"><?php echo $data['all'][$i]->title ?></a>
+                                        <a href="<?= Url::to(['product/detail', 'productid' => $data['all'][$i]->productid]); ?>"><?= $data['all'][$i]->title ?></a>
                                     </div>
                                 </div>
                                 <div class="prices">
-                                    <div class="price-current text-right">￥<?php echo $data['all'][$i]->saleprice ?></div>
+                                    <div class="price-current text-right">￥<?= $data['all'][$i]->saleprice ?></div>
                                 </div>
                                 <div class="hover-area">
                                     <div class="add-cart-button">
-                                        <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $data['all'][$i]->productid]) ?>" class="le-button">加入购物车</a>
+                                        <a href="<?= Url::to(['cart/add', 'productid' => $data['all'][$i]->productid]) ?>" class="le-button">加入购物车</a>
                                     </div>
                                 </div>
                             </div>
@@ -329,14 +335,14 @@
                     <?php $last = $data['all'][count($data['all']) - 1]; ?>
                     <div id="best-seller-single-product-slider" class="single-product-slider owl-carousel">
                         <div class="single-product-gallery-item" id="slide1">
-                            <a data-rel="prettyphoto" href="<?php echo $last->cover ?>">
-                                <img alt="<?php echo $last->title ?>" src="<?php echo $last->cover ?>-coverbig" data-echo="<?php echo $last->cover ?>-coverbig" />
+                            <a data-rel="prettyphoto" href="<?= $last->cover ?>">
+                                <img alt="<?= $last->title ?>" src="<?= $last->cover ?>-coverbig" data-echo="<?= $last->cover ?>-coverbig" />
                             </a>
                         </div><!-- /.single-product-gallery-item -->
                         <?php foreach ((array) json_decode($last->pics, true) as $key => $pic): ?>
-                            <div class="single-product-gallery-item" id="slide<?php echo $key + 2; ?>">
-                                <a data-rel="prettyphoto" href="<?php echo $last->pics ?>">
-                                    <img alt="" src="<?php echo $pic ?>-picbig" data-echo="<?php echo $pic ?>-picbig" />
+                            <div class="single-product-gallery-item" id="slide<?= $key + 2; ?>">
+                                <a data-rel="prettyphoto" href="<?= $last->pics ?>">
+                                    <img alt="" src="<?= $pic ?>-picbig" data-echo="<?= $pic ?>-picbig" />
                                 </a>
                             </div><!-- /.single-product-gallery-item -->
                         <?php endforeach; ?>
@@ -344,9 +350,9 @@
 
                     <div class="gallery-thumbs clearfix">
                         <ul>
-                            <li><a class="horizontal-thumb active" data-target="#best-seller-single-product-slider" data-slide="0" href="#slide1"><img alt="<?php echo $last->title ?>" src="<?php echo $last->cover ?>-picsmall" data-echo="<?php echo $last->cover ?>-picsmall" /></a></li>
+                            <li><a class="horizontal-thumb active" data-target="#best-seller-single-product-slider" data-slide="0" href="#slide1"><img alt="<?= $last->title ?>" src="<?= $last->cover ?>-picsmall" data-echo="<?= $last->cover ?>-picsmall" /></a></li>
                             <?php foreach ((array) json_decode($last->pics, true) as $key => $pic): ?>
-                                <li><a class="horizontal-thumb" data-target="#best-seller-single-product-slider" data-slide="<?php echo $key + 1; ?>" href="#slide<?php echo $key + 2; ?>"><img alt="" src="<?php echo $pic ?>-picsmall" data-echo="<?php echo $pic ?>-picsmall" /></a></li>
+                                <li><a class="horizontal-thumb" data-target="#best-seller-single-product-slider" data-slide="<?= $key + 1; ?>" href="#slide<?= $key + 2; ?>"><img alt="" src="<?= $pic ?>-picsmall" data-echo="<?= $pic ?>-picsmall" /></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div><!-- /.gallery-thumbs -->
@@ -354,12 +360,12 @@
                     <div class="body">
                         <div class="label-discount clear"></div>
                         <div class="title">
-                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $last->productid]) ?>"><?php echo $last->title ?></a>
+                            <a href="<?= Url::to(['product/detail', 'productid' => $last->productid]) ?>"><?= $last->title ?></a>
                         </div>
                     </div>
                     <div class="prices text-right">
-                        <div class="price-current inline">￥<?php echo $last->saleprice ?></div>
-                        <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $last->productid]) ?>" class="le-button big inline">加入购物车</a>
+                        <div class="price-current inline">￥<?= $last->saleprice ?></div>
+                        <a href="<?= Url::to(['cart/add', 'productid' => $last->productid]) ?>" class="le-button big inline">加入购物车</a>
                     </div>
                 </div><!-- /.product-item-holder -->
             </div><!-- /.col -->
@@ -393,19 +399,19 @@
                             <?php endif; ?>
 
                             <div class="image">
-                                <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                <img alt="<?= $pro->title ?>" src="<?= $pro->cover ?>-covermiddle" data-echo="<?= $pro->cover ?>-covermiddle" />
                             </div>
                             <div class="body">
                                 <div class="title">
-                                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                    <a href="<?= Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?= $pro->title ?></a>
                                 </div>
                             </div>
                             <div class="prices">
-                                <div class="price-current text-right">￥<?php echo $pro->saleprice ?></div>
+                                <div class="price-current text-right">￥<?= $pro->saleprice ?></div>
                             </div>
                             <div class="hover-area">
                                 <div class="add-cart-button">
-                                    <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                    <a href="<?= Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
                                 </div>
                             </div>
                         </div><!-- /.product-item -->
@@ -434,49 +440,49 @@
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-01.jpg" />
+                        <img alt="" src="/images/brands/brand-01.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-02.jpg" />
+                        <img alt="" src="/images/brands/brand-02.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-03.jpg" />
+                        <img alt="" src="/images/brands/brand-03.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-04.jpg" />
+                        <img alt="" src="/images/brands/brand-04.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-01.jpg" />
+                        <img alt="" src="/images/brands/brand-01.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-02.jpg" />
+                        <img alt="" src="/images/brands/brand-02.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-03.jpg" />
+                        <img alt="" src="/images/brands/brand-03.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="/assets/images/brands/brand-04.jpg" />
+                        <img alt="" src="/images/brands/brand-04.jpg" />
                     </a>
                 </div><!-- /.carousel-item -->
 
