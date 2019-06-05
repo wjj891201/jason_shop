@@ -43,7 +43,7 @@ class MemberController extends CommonController
           if (!isset(Yii::$app->session['isLogin'])) {
           return $this->goBack(Yii::$app->request->referrer);
           } */
-        Yii::$app->user->logout();
+        Yii::$app->user->logout(false);
         return $this->goBack(Yii::$app->request->referrer);
     }
 

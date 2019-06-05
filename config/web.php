@@ -38,7 +38,16 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'idParam' => '__user',
+            'identityCookie' => ['name' => '__user_indentity', 'httpOnly' => true],
             'loginUrl' => ['/member/auth']
+        ],
+        'admin' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'app\modules\models\Admin',
+            'idParam' => '__admin',
+            'identityCookie' => ['name' => '__admin_indentity', 'httpOnly' => true],
+            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

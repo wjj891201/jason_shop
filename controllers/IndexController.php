@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\controllers\CommonController;
@@ -6,6 +7,9 @@ use app\models\Product;
 
 class IndexController extends CommonController
 {
+
+    protected $except = ['index'];
+
     public function actionIndex()
     {
         $this->layout = "layout1";
@@ -15,4 +19,5 @@ class IndexController extends CommonController
         $data['all'] = Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(7)->all();
         return $this->render("index", ['data' => $data]);
     }
+
 }
