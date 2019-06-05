@@ -11,12 +11,19 @@ $config = [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_item}}',
+            'itemChildTable' => '{{%auth_item_child}}',
+            'assignmentTable' => '{{%auth_assignment}}',
+            'ruleTable' => '{{%auth_rule}}'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'log' => [
             'targets' => [
-                [
+                    [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
@@ -25,16 +32,17 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
-    /*
-    'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
-    ],
-    */
+        /*
+          'controllerMap' => [
+          'fixture' => [ // Fixture generation command line.
+          'class' => 'yii\faker\FixtureController',
+          ],
+          ],
+         */
 ];
 
-if (YII_ENV_DEV) {
+if (YII_ENV_DEV)
+{
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [

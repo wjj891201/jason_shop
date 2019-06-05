@@ -210,8 +210,17 @@ AdminAsset::register($this);
                         <li><a href="<?= Url::to(['order/list']); ?>">订单列表</a></li>
                     </ul>
                 </li>
-
-
+                <li>
+                    <a class="dropdown-toggle" href="#">
+                        <i class="icon-group"></i>
+                        <span>权限管理</span>
+                        <i class="icon-chevron-down"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="<?= Url::to(['rbac/createrole']); ?>">创建角色</a></li>
+                        <li><a href="<?= Url::to(['rbac/roles']); ?>">创建列表</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- end sidebar -->

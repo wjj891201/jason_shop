@@ -8,6 +8,7 @@ use Yii;
 class CommonController extends Controller
 {
 
+    public $layout = 'layout1';
     protected $actions = [];
     protected $except = [];
     protected $mustlogin = [];
