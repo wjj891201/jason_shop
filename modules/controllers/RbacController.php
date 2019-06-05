@@ -11,6 +11,7 @@ namespace app\modules\controllers;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use app\modules\models\Rbac;
 
 /**
  * Description of RbacController
@@ -20,7 +21,7 @@ use yii\db\Query;
 class RbacController extends CommonController
 {
 
-    public $mustlogin = ['createrole', 'roles'];
+    public $mustlogin = ['createrole', 'roles', 'assignitem'];
 
     public function actionCreaterole()
     {
@@ -53,6 +54,24 @@ class RbacController extends CommonController
             'pagination' => ['pageSize' => 5],
         ]);
         return $this->render('_items', ['dataProvider' => $data]);
+    }
+
+    public function actionAssignitem($name)
+    {
+        $name = htmlspecialchars($name);
+        $auth = Yii::$app->authManager;
+        $parent = $auth->getRole($name);
+        if (Yii::$app->request->isPost)
+        {
+            $post = Yii::$app->request->post();
+            if (Rbac::addChild($post['children'], $name))
+            {
+                Yii::$app->session->setFlash('info', '分配成功');
+            }
+        }
+        $roles = Rbac::getOptions($auth->getRoles(), $parent);
+        $permissions = Rbac::getOptions($auth->getPermissions(), $parent);
+        return $this->render('_assignitem', ['parent' => $name, 'roles' => $roles, 'permissions' => $permissions]);
     }
 
 }
