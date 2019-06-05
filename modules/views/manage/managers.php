@@ -67,6 +67,7 @@
                             <td class="align-right">
                                 <?php if ($manager->adminid != 1): ?>
                                     <a href="<?php echo yii\helpers\Url::to(['manage/del', 'adminid' => $manager->adminid]) ?>">删除</a>
+                                    <a href="<?php echo yii\helpers\Url::to(['manage/assign', 'adminid' => $manager->adminid]) ?>">授权</a>
                                 <?php endif; ?>
                             </td>
                         </tr>

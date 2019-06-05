@@ -23,6 +23,10 @@ class Rbac extends ActiveRecord
             {
                 $return[$obj->name] = $obj->description;
             }
+            if (is_null($parent))
+            {
+                $return[$obj->name] = $obj->description;
+            }
         }
         return $return;
     }
@@ -79,6 +83,52 @@ class Rbac extends ActiveRecord
                 $return['permissions'][] = $obj->name;
             }
         }
+        return $return;
+    }
+
+    public static function grant($adminid, $children)
+    {
+        $trans = Yii::$app->db->beginTransaction();
+        try
+        {
+            $auth = Yii::$app->authManager;
+            $auth->revokeAll($adminid);
+            foreach ($children as $item)
+            {
+                $obj = empty($auth->getRole($item)) ? $auth->getPermission($item) : $auth->getRole($item);
+                $auth->assign($obj, $adminid);
+            }
+            $trans->commit();
+        } catch (\Exception $e)
+        {
+            $trans->rollBack();
+            return false;
+        }
+        return true;
+    }
+
+    private static function _getItemByUser($adminid, $type)
+    {
+        $func = 'getPermissionsByUser';
+        if ($type == 1)
+        {
+            $func = 'getRolesByUser';
+        }
+        $data = [];
+        $auth = Yii::$app->authManager;
+        $items = $auth->$func($adminid);
+        foreach ($items as $item)
+        {
+            $data[] = $item->name;
+        }
+        return $data;
+    }
+
+    public static function getChildrenByUser($adminid)
+    {
+        $return = [];
+        $return['roles'] = self::_getItemByUser($adminid, 1);
+        $return['permissions'] = self::_getItemByUser($adminid, 2);
         return $return;
     }
 
