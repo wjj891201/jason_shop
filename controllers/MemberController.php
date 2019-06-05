@@ -9,6 +9,8 @@ use Yii;
 class MemberController extends CommonController
 {
 
+    protected $except = ['auth', 'logout', 'reg', 'qqreg', 'qqlogin', 'qqcallback'];
+
     public function actionAuth()
     {
         $this->layout = 'layout2';

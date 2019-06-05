@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use yii\web\Controller;
@@ -10,6 +11,39 @@ use Yii;
 
 class CommonController extends Controller
 {
+
+    protected $actions = [];
+    protected $except = [];
+    protected $mustlogin = [];
+    protected $verbs = [];
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+//                'only' => $this->actions,
+                'except' => $this->except,
+                'rules' => [
+                        [
+                        'allow' => false,
+                        'actions' => empty($this->mustlogin) ? [] : $this->mustlogin,
+                        'roles' => ['?']
+                    ],
+                        [
+                        'allow' => true,
+                        'actions' => empty($this->mustlogin) ? [] : $this->mustlogin,
+                        'roles' => ['@']
+                    ]
+                ],
+            ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::className(),
+                'actions' => $this->verbs
+            ]
+        ];
+    }
+
     public function init()
     {
         $menu = Category::getMenu();
@@ -17,12 +51,15 @@ class CommonController extends Controller
         $data = [];
         $data['products'] = [];
         $total = 0;
-        if (Yii::$app->session['isLogin']) {
+        if (Yii::$app->session['isLogin'])
+        {
             $usermodel = User::find()->where('username = :name', [":name" => Yii::$app->session['loginname']])->one();
-            if (!empty($usermodel) && !empty($usermodel->userid)) {
+            if (!empty($usermodel) && !empty($usermodel->userid))
+            {
                 $userid = $usermodel->userid;
                 $carts = Cart::find()->where('userid = :uid', [':uid' => $userid])->asArray()->all();
-                foreach($carts as $k=>$pro) {
+                foreach ($carts as $k => $pro)
+                {
                     $product = Product::find()->where('productid = :pid', [':pid' => $pro['productid']])->one();
                     $data['products'][$k]['cover'] = $product->cover;
                     $data['products'][$k]['title'] = $product->title;
@@ -40,9 +77,10 @@ class CommonController extends Controller
         $new = Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(3)->all();
         $hot = Product::find()->where('ison = "1" and ishot = "1"')->orderby('createtime desc')->limit(3)->all();
         $sale = Product::find()->where('ison = "1" and issale = "1"')->orderby('createtime desc')->limit(3)->all();
-        $this->view->params['tui'] = (array)$tui;
-        $this->view->params['new'] = (array)$new;
-        $this->view->params['hot'] = (array)$hot;
-        $this->view->params['sale'] = (array)$sale;
+        $this->view->params['tui'] = (array) $tui;
+        $this->view->params['new'] = (array) $new;
+        $this->view->params['hot'] = (array) $hot;
+        $this->view->params['sale'] = (array) $sale;
     }
+
 }
