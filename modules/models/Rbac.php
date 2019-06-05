@@ -53,4 +53,33 @@ class Rbac extends ActiveRecord
         return true;
     }
 
+    public static function getChildrenByName($name)
+    {
+        if (empty($name))
+        {
+            return [];
+        }
+        $return = [];
+        $return['roles'] = [];
+        $return['permissions'] = [];
+        $auth = Yii::$app->authManager;
+        $children = $auth->getChildren($name);
+        if (empty($children))
+        {
+            return [];
+        }
+        foreach ($children as $obj)
+        {
+            if ($obj->type == 1)
+            {
+                $return['roles'][] = $obj->name;
+            }
+            else
+            {
+                $return['permissions'][] = $obj->name;
+            }
+        }
+        return $return;
+    }
+
 }

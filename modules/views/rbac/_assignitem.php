@@ -42,10 +42,10 @@ $this->registerCssFile('admin/css/compiled/new-user.css');
                         <?= Html::label('角色名称', null) . Html::encode($parent) ?>
                     </div>
                     <div class="span12 field-box">
-                        <?= Html::label('角色子节点', null) . Html::checkboxList('children', [], $roles) ?>
+                        <?= Html::label('角色子节点', null) . Html::checkboxList('children', $children['roles'], $roles) ?>
                     </div>
                     <div class="span12 field-box">
-                        <?= Html::label('权限子节点', null) . Html::checkboxList('children', [], $permissions) ?>
+                        <?= Html::label('权限子节点', null) . Html::checkboxList('children', $children['permissions'], $permissions) ?>
                     </div>
                     <div class="span11 field-box actions">
                         <?php echo Html::submitButton('分配', ['class' => 'btn-glow primary']); ?>

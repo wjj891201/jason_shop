@@ -69,9 +69,12 @@ class RbacController extends CommonController
                 Yii::$app->session->setFlash('info', '分配成功');
             }
         }
+
+        $children = Rbac::getChildrenByName($name);
+
         $roles = Rbac::getOptions($auth->getRoles(), $parent);
         $permissions = Rbac::getOptions($auth->getPermissions(), $parent);
-        return $this->render('_assignitem', ['parent' => $name, 'roles' => $roles, 'permissions' => $permissions]);
+        return $this->render('_assignitem', ['parent' => $name, 'roles' => $roles, 'permissions' => $permissions, 'children' => $children]);
     }
 
 }
