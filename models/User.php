@@ -44,8 +44,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             {
                 $loginname = "useremail";
             }
-            $data = self::find()->where($loginname . ' = :loginname and userpass = :pass', [':loginname' => $this->loginname, ':pass' => md5($this->userpass)])->one();
+            $data = self::find()->where($loginname . ' = :loginname', [':loginname' => $this->loginname])->one();
             if (is_null($data))
+            {
+                $this->addError("userpass", "用户名或者密码错误");
+            }
+            if (!Yii::$app->getSecurity()->validatePassword($this->userpass, $data->userpass))
             {
                 $this->addError("userpass", "用户名或者密码错误");
             }
@@ -69,7 +73,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         if ($this->load($data) && $this->validate())
         {
             $this->createtime = time();
-            $this->userpass = md5($this->userpass);
+//            $this->userpass = md5($this->userpass);
+            $this->userpass = Yii::$app->getSecurity()->generatePasswordHash($this->userpass);
             if ($this->save(false))
             {
                 return true;
