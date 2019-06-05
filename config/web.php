@@ -48,6 +48,7 @@ $config = [
             'idParam' => '__admin',
             'identityCookie' => ['name' => '__admin_indentity', 'httpOnly' => true],
             'enableAutoLogin' => true,
+            'loginUrl' => ['/admin/public/login']
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
