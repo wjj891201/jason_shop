@@ -21,7 +21,7 @@ use app\modules\models\Rbac;
 class RbacController extends CommonController
 {
 
-    public $mustlogin = ['createrole', 'roles', 'assignitem'];
+    public $mustlogin = ['createrole', 'roles', 'assignitem', 'createrule'];
 
     public function actionCreaterole()
     {
@@ -75,6 +75,29 @@ class RbacController extends CommonController
         $roles = Rbac::getOptions($auth->getRoles(), $parent);
         $permissions = Rbac::getOptions($auth->getPermissions(), $parent);
         return $this->render('_assignitem', ['parent' => $name, 'roles' => $roles, 'permissions' => $permissions, 'children' => $children]);
+    }
+
+    public function actionCreaterule()
+    {
+        if (Yii::$app->request->isPost)
+        {
+            $post = Yii::$app->request->post();
+            if (empty($post['class_name']))
+            {
+                throw new \Exception('参数错误');
+            }
+            $className = "app\\models\\" . $post['class_name'];
+            if (!class_exists($className))
+            {
+                throw new \Exception('规则类不存在');
+            }
+            $rule = new $className;
+            if (Yii::$app->authManager->add($rule))
+            {
+                Yii::$app->session->setFlash('info', '添加成功');
+            }
+        }
+        return $this->render('_createrule');
     }
 
 }

@@ -219,6 +219,7 @@ AdminAsset::register($this);
                     <ul class="submenu">
                         <li><a href="<?= Url::to(['rbac/createrole']); ?>">创建角色</a></li>
                         <li><a href="<?= Url::to(['rbac/roles']); ?>">创建列表</a></li>
+                        <li><a href="<?= Url::to(['rbac/createrule']); ?>">创建规则</a></li>
                     </ul>
                 </li>
             </ul>

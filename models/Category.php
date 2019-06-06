@@ -5,9 +5,22 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\behaviors\BlameableBehavior;
 
 class Category extends ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+                [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'adminid',
+                'updatedByAttribute' => null,
+                'value' => Yii::$app->admin->id
+            ],
+        ];
+    }
 
     public static function tableName()
     {
