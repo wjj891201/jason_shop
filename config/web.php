@@ -14,7 +14,8 @@ $config = [
             'itemTable' => '{{%auth_item}}',
             'itemChildTable' => '{{%auth_item_child}}',
             'assignmentTable' => '{{%auth_assignment}}',
-            'ruleTable' => '{{%auth_rule}}'
+            'ruleTable' => '{{%auth_rule}}',
+            'defaultRoles' => ['category']
         ],
         'assetManager' => [
             'class' => 'yii\web\AssetManager',
