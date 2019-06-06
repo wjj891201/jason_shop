@@ -145,83 +145,59 @@ AdminAsset::register($this);
         <!-- sidebar -->
         <div id="sidebar-nav">
             <ul id="dashboard-menu">
-                <li class="active">
-                    <div class="pointer">
-                        <div class="arrow"></div>
-                        <div class="arrow_border"></div>
-                    </div>
-                    <a href="<?= Url::to(['default/index']) ?>">
-                        <i class="icon-home"></i>
-                        <span>后台首页</span>
-                    </a>
-                </li>            
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-user"></i>
-                        <span>管理员管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['manage/managers']); ?>">管理员列表</a></li>
-                        <li><a href="<?= Url::to(['manage/reg']); ?>">加入新管理员</a></li>
-                    </ul>
-                </li>
+                <?php
+                $controller = Yii::$app->controller->id;
+                $action = Yii::$app->controller->action->id;
+                foreach (Yii::$app->params['adminmenu'] as $menu)
+                {
+                    $show = 'hidden';
+                    if (Yii::$app->admin->can($menu['module'] . '/*'))
+                    {
+                        $show = 'show';
+                    }
+                    else
+                    {
+                        if (empty($menu['submenu']) && !Yii::$app->admin->can($menu['url']))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            foreach ($menu['submenu'] as $sub)
+                            {
+                                if (Yii::$app->admin->can($menu['module'] . '/' . $sub['url']))
+                                {
+                                    $show = 'show';
+                                }
+                            }
+                        }
+                    }
+                    ?>
 
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-group"></i>
-                        <span>用户管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['user/users']); ?>">用户列表</a></li>
-                        <li><a href="<?= Url::to(['user/reg']); ?>">加入新用户</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-list"></i>
-                        <span>分类管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['category/list']); ?>">分类列表</a></li>
-                        <li><a href="<?= Url::to(['category/add']); ?>">加入分类</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-glass"></i>
-                        <span>商品管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['product/list']); ?>">商品列表</a></li>
-                        <li><a href="<?= Url::to(['product/add']); ?>">添加商品</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-edit"></i>
-                        <span>订单管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['order/list']); ?>">订单列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-group"></i>
-                        <span>权限管理</span>
-                        <i class="icon-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?= Url::to(['rbac/createrole']); ?>">创建角色</a></li>
-                        <li><a href="<?= Url::to(['rbac/roles']); ?>">创建列表</a></li>
-                        <li><a href="<?= Url::to(['rbac/createrule']); ?>">创建规则</a></li>
-                    </ul>
-                </li>
+                    <li class="<?= $controller == $menu['module'] ? 'active' : ''; ?> <?= $show ?>">
+                        <a class="<?= !empty($menu['submenu']) ? 'dropdown-toggle' : ''; ?>" href="<?= $menu['url'] == '#' ? '#' : Url::to([$menu['url']]) ?>">
+                            <i class="<?= $menu['icon'] ?>"></i>
+                            <span><?= $menu['label'] ?></span>
+                            <?php if (!empty($menu['submenu'])): ?>
+                                <i class="icon-chevron-down"></i>
+                            <?php endif; ?>
+                        </a>
+                        <ul class="submenu <?= $controller == $menu['module'] && !empty($menu['submenu']) ? 'active' : ''; ?>">
+                            <?php foreach ($menu['submenu'] as $sub): ?>
+                                <?php
+                                if (!Yii::$app->admin->can($menu['module'] . '/*') && !Yii::$app->admin->can($menu['module'] . '/' . $sub['url']))
+                                {
+                                    continue;
+                                }
+                                ?>
+                                <li><a href="<?= Url::to([$menu['module'] . '/' . $sub['url']]); ?>"><?= $sub['label'] ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+
+                    <?php
+                }
+                ?>
             </ul>
         </div>
         <!-- end sidebar -->

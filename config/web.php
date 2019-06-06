@@ -1,6 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$adminmenu = require(__DIR__ . '/adminmenu.php');
 
 $config = [
     'id' => 'basic',
@@ -94,7 +95,7 @@ $config = [
       ],
      */
     ],
-    'params' => $params,
+    'params' => array_merge($params, ['adminmenu' => $adminmenu]),
 ];
 
 if (YII_ENV_DEV)
