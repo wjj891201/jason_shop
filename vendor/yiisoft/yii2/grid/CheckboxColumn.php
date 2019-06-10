@@ -35,6 +35,8 @@ use yii\helpers\Json;
  * // keys is an array consisting of the keys associated with the selected rows
  * ```
  *
+ * For more details and usage information on CheckboxColumn, see the [guide article on data widgets](guide:output-data-widgets).
+ *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
@@ -64,13 +66,18 @@ class CheckboxColumn extends Column
      */
     public $checkboxOptions = [];
     /**
-     * @var boolean whether it is possible to select multiple rows. Defaults to `true`.
+     * @var bool whether it is possible to select multiple rows. Defaults to `true`.
      */
     public $multiple = true;
+    /**
+     * @var string the css class that will be used to find the checkboxes.
+     * @since 2.0.9
+     */
+    public $cssClass;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \yii\base\InvalidConfigException if [[name]] is not set.
      */
     public function init()
@@ -96,16 +103,20 @@ class CheckboxColumn extends Column
     {
         if ($this->header !== null || !$this->multiple) {
             return parent::renderHeaderCellContent();
-        } else {
-            return Html::checkbox($this->getHeaderCheckBoxName(), false, ['class' => 'select-on-check-all']);
         }
+
+        return Html::checkbox($this->getHeaderCheckBoxName(), false, ['class' => 'select-on-check-all']);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function renderDataCellContent($model, $key, $index)
     {
+        if ($this->content !== null) {
+            return parent::renderDataCellContent($model, $key, $index);
+        }
+
         if ($this->checkboxOptions instanceof Closure) {
             $options = call_user_func($this->checkboxOptions, $model, $key, $index, $this);
         } else {
@@ -116,11 +127,15 @@ class CheckboxColumn extends Column
             $options['value'] = is_array($key) ? Json::encode($key) : $key;
         }
 
+        if ($this->cssClass !== null) {
+            Html::addCssClass($options, $this->cssClass);
+        }
+
         return Html::checkbox($this->name, !empty($options['checked']), $options);
     }
 
     /**
-     * Returns header checkbox name
+     * Returns header checkbox name.
      * @return string header checkbox name
      * @since 2.0.8
      */
@@ -140,7 +155,7 @@ class CheckboxColumn extends Column
     }
 
     /**
-     * Registers the needed JavaScript
+     * Registers the needed JavaScript.
      * @since 2.0.8
      */
     public function registerClientScript()
@@ -148,6 +163,7 @@ class CheckboxColumn extends Column
         $id = $this->grid->options['id'];
         $options = Json::encode([
             'name' => $this->name,
+            'class' => $this->cssClass,
             'multiple' => $this->multiple,
             'checkAll' => $this->grid->showHeader ? $this->getHeaderCheckBoxName() : null,
         ]);
