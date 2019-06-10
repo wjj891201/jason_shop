@@ -1,13 +1,18 @@
 <?php
+
 namespace app\controllers;
 
 use app\controllers\CommonController;
 use Yii;
 use app\models\Product;
 use yii\data\Pagination;
+use app\models\ProductSearch;
 
 class ProductController extends CommonController
 {
+
+    protected $except = ['index', 'detail', 'search'];
+
     public function actionIndex()
     {
         $this->layout = "layout2";
@@ -16,7 +21,7 @@ class ProductController extends CommonController
         $params = [':cid' => $cid];
         $model = Product::find()->where($where, $params);
         $all = $model->asArray()->all();
-        
+
         $count = $model->count();
         $pageSize = Yii::$app->params['pageSize']['frontproduct'];
         $pager = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
@@ -36,4 +41,26 @@ class ProductController extends CommonController
         $data['all'] = Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(7)->all();
         return $this->render("detail", ['product' => $product, 'data' => $data]);
     }
+
+    public function actionSearch()
+    {
+        $keyword = htmlspecialchars(Yii::$app->request->get('keyword'));
+        $highlight = [
+            "pre_tags" => ["<em>"],
+            "post_tags" => ["</em>"],
+            "fields" => [
+                'title' => new \stdClass(),
+                'descr' => new \stdClass()
+            ]
+        ];
+        $res = ProductSearch::find()->query([
+                    "multi_match" => [
+                        "query" => $keyword,
+                        "fields" => ["title", "descr"]
+                    ]
+                ])->highlight($highlight)->all();
+        var_dump($res);
+        exit;
+    }
+
 }

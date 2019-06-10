@@ -4,6 +4,7 @@ use app\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\NavBar;
 use yii\bootstrap\Nav;
+use yii\bootstrap\ActiveForm;
 
 AppAsset::register($this);
 ?>
@@ -79,29 +80,28 @@ AppAsset::register($this);
                         </div><!-- /.contact-row -->
                         <!-- ============================================================= SEARCH AREA ============================================================= -->
                         <div class="search-area">
-                            <form>
-                                <div class="control-group">
-                                    <input class="search-field" placeholder="搜索商品" />
-
-                                    <ul class="categories-filter animate-dropdown">
-                                        <li class="dropdown">
-
-                                            <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html">所有分类</a>
-
-                                            <ul class="dropdown-menu" role="menu" >
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-
-                                            </ul>
-                                        </li>
-                                    </ul>
-
-                                    <a style="padding:15px 15px 13px 12px" class="search-button" href="#" ></a>    
-
-                                </div>
-                            </form>
+                            <?php
+                            $form = ActiveForm::begin([
+                                        'action' => '/product/search',
+                                        'method' => 'get'
+                            ]);
+                            ?>
+                            <div class="control-group">
+                                <input class="search-field" name="keyword" placeholder="搜索商品" />
+                                <ul class="categories-filter animate-dropdown">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html">所有分类</a>
+                                        <ul class="dropdown-menu" role="menu" >
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:document.getElementById('w3').submit();" ></a>    
+                            </div>
+                            <?php ActiveForm::end(); ?>
                         </div><!-- /.search-area -->
                         <!-- ============================================================= SEARCH AREA : END ============================================================= -->		</div><!-- /.top-search-holder -->
 

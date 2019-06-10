@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\NavBar;
 use yii\bootstrap\Nav;
+use yii\bootstrap\ActiveForm;
 use Yii;
 
 AppAsset::register($this);
@@ -72,27 +73,30 @@ AppAsset::register($this);
                         </div>
 
                         <div class="search-area">
-                            <form>
-                                <div class="control-group">
-                                    <input class="search-field" placeholder="搜索商品" />
+                            <?php
+                            $form = ActiveForm::begin([
+                                        'action' => Url::to(['product/search']),
+                                        'method' => 'get'
+                            ]);
+                            ?>
+                            <div class="control-group">
+                                <input class="search-field" name="keyword" placeholder="搜索商品" />
+                                <ul class="categories-filter animate-dropdown">
+                                    <li class="dropdown">
 
-                                    <ul class="categories-filter animate-dropdown">
-                                        <li class="dropdown">
+                                        <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html">所有分类</a>
 
-                                            <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html">所有分类</a>
-
-                                            <ul class="dropdown-menu" role="menu" >
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
-
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <a style="padding:15px 15px 13px 12px" class="search-button" href="#" ></a>    
-                                </div>
-                            </form>
+                                        <ul class="dropdown-menu" role="menu" >
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">电子产品</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:document.getElementById('w3').submit();" ></a>    
+                            </div>
+                            <?php ActiveForm::end(); ?>
                         </div>
                     </div>
 
