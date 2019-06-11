@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\controllers\CommonController;
 use app\models\Product;
+use Yii;
 
 class IndexController extends CommonController
 {

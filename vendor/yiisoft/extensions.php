@@ -93,4 +93,13 @@ return array (
       '@yii/elasticsearch' => $vendorDir . '/yiisoft/yii2-elasticsearch',
     ),
   ),
+  'yiisoft/yii2-redis' => 
+  array (
+    'name' => 'yiisoft/yii2-redis',
+    'version' => '2.0.0.0',
+    'alias' => 
+    array (
+      '@yii/redis' => $vendorDir . '/yiisoft/yii2-redis',
+    ),
+  ),
 );

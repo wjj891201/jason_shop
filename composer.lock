@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a62ad9297a0351639bbe6996b7bf2e6",
+    "content-hash": "c34116f93c30a2ae0f83a1fea9454c2c",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -877,6 +877,60 @@
             "time": "2018-03-20T11:34:58+00:00"
         },
         {
+            "name": "yiisoft/yii2-redis",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-redis.git",
+                "reference": "e8688181ceb968b09438a80ad443f31e30cbcbc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-redis/zipball/e8688181ceb968b09438a80ad443f31e30cbcbc0",
+                "reference": "e8688181ceb968b09438a80ad443f31e30cbcbc0",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\redis\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc"
+                }
+            ],
+            "description": "Redis Cache, Session and ActiveRecord for the Yii framework",
+            "keywords": [
+                "active-record",
+                "cache",
+                "redis",
+                "session",
+                "yii2"
+            ],
+            "time": "2014-10-12T17:09:06+00:00"
+        },
+        {
             "name": "yiisoft/yii2-swiftmailer",
             "version": "2.0.7",
             "source": {
@@ -1002,7 +1056,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpspec/php-diff/zipball/0464787bfa7cd13576c5a1e318709768798bec6a",
                 "reference": "0464787bfa7cd13576c5a1e318709768798bec6a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "type": "library",
             "extra": {

@@ -9,6 +9,12 @@ $config = [
     'bootstrap' => ['log'],
     'defaultRoute' => 'index',
     'components' => [
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => '127.0.0.1',
+            'port' => 6379,
+            'database' => 0,
+        ],
         'elasticsearch' => [
             'class' => 'yii\elasticsearch\Connection',
             'autodetectCluster' => false,
@@ -71,6 +77,9 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            //redis 0-15
+            'db' => 1,
+            'key' => 'mails',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
