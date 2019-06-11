@@ -20,7 +20,7 @@ class ProductSearch extends ActiveRecord
 
     //put your code here
 
-    public function arrayAttributes()
+    public function attributes()
     {
         return ['productid', 'title', 'descr'];
     }
