@@ -44,6 +44,7 @@ class ProductController extends CommonController
 
     public function actionSearch()
     {
+        $this->layout = "layout2";
         $keyword = htmlspecialchars(Yii::$app->request->get('keyword'));
         $highlight = [
             "pre_tags" => ["<em>"],
@@ -53,14 +54,31 @@ class ProductController extends CommonController
                 'descr' => new \stdClass()
             ]
         ];
-        $res = ProductSearch::find()->query([
-                    "multi_match" => [
-                        "query" => $keyword,
-                        "fields" => ["title", "descr"]
-                    ]
-                ])->highlight($highlight)->all();
-        var_dump($res);
-        exit;
+        $searchModel = ProductSearch::find()->query([
+            "multi_match" => [
+                "query" => $keyword,
+                "fields" => ["title", "descr"]
+            ]
+        ]);
+//        $count = $searchModel->count();
+//        var_dump($searchModel);
+//        exit;
+//        $pageSize = Yii::$app->params['pageSize']['frontproduct'];
+//        $pager = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
+//        $res = $searchModel->highlight($highlight)->offset($pager->offset)->limit($pager->limit)->all();
+        $res = $searchModel->highlight($highlight)->all();
+        $products = [];
+        foreach ($res as $result)
+        {
+            $product = Product::findOne($result->productid);
+            $product->title = !empty($result->highlight['title'][0]) ? $result->highlight['title'][0] : $product->title;
+            $product->descr = !empty($result->highlight['descr'][0]) ? $result->highlight['descr'][0] : $product->descr;
+            $products[] = $product;
+        }
+        $tui = [];
+        $hot = [];
+        $sale = [];
+        return $this->render("index", ['all' => $products, 'tui' => $tui, 'hot' => $hot, 'sale' => $sale]);
     }
 
 }
