@@ -12,6 +12,15 @@ $config = [
         '@doctorjason/mailerqueue' => '@vendor/doctorjason/mailerqueue/src'
     ],
     'components' => [
+        'session' => [
+            'class' => 'yii\redis\Session',
+            'redis' => [
+                'hostname' => '127.0.0.1',
+                'port' => 6379,
+                'database' => '3',
+            ],
+            'keyPrefix' => 'imooc_sess_'
+        ],
         'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => '127.0.0.1',
