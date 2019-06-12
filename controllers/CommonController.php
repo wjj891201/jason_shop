@@ -84,10 +84,23 @@ class CommonController extends Controller
             $cache->set($key, $data, 60, $dep);
         }
         $this->view->params['cart'] = $data;
-        $tui = Product::find()->where('istui = "1" and ison = "1"')->orderby('createtime desc')->limit(3)->all();
-        $new = Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(3)->all();
-        $hot = Product::find()->where('ison = "1" and ishot = "1"')->orderby('createtime desc')->limit(3)->all();
-        $sale = Product::find()->where('ison = "1" and issale = "1"')->orderby('createtime desc')->limit(3)->all();
+
+        // 对商品做查询缓存
+        $dep = new \yii\caching\DbDependency([
+            'sql' => 'select max(updatetime) from {{%product}} where ison = "1"'
+        ]);
+        $tui = Product::getDb()->cache(function () {
+            return Product::find()->where('istui = "1" and ison = "1"')->orderby('createtime desc')->limit(3)->all();
+        }, 60, $dep);
+        $new = Product::getDb()->cache(function () {
+            return Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(3)->all();
+        }, 60, $dep);
+        $hot = Product::getDb()->cache(function () {
+            return Product::find()->where('ison = "1" and ishot = "1"')->orderby('createtime desc')->limit(3)->all();
+        }, 60, $dep);
+        $sale = Product::getDb()->cache(function () {
+            return Product::find()->where('ison = "1" and issale = "1"')->orderby('createtime desc')->limit(3)->all();
+        }, 60, $dep);
         $this->view->params['tui'] = (array) $tui;
         $this->view->params['new'] = (array) $new;
         $this->view->params['hot'] = (array) $hot;
