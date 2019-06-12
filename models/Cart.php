@@ -1,11 +1,29 @@
 <?php
+
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 use Yii;
 
 class Cart extends ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+                [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'createtime',
+                'updatedAtAttribute' => 'updatetime',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createtime', 'updatetime'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updatetime'],
+                ]
+            ]
+        ];
+    }
+
     public static function tableName()
     {
         return "{{%cart}}";
@@ -14,10 +32,9 @@ class Cart extends ActiveRecord
     public function rules()
     {
         return [
-            [['productid','productnum','userid','price'], 'required'],
-            ['createtime', 'safe']
+                [['productid', 'productnum', 'userid', 'price'], 'required'],
+                ['createtime', 'safe']
         ];
     }
-
 
 }

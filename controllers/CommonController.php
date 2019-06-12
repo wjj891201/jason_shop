@@ -46,32 +46,43 @@ class CommonController extends Controller
 
     public function init()
     {
-        $menu = Category::getMenu();
-        $this->view->params['menu'] = $menu;
-        $data = [];
-        $data['products'] = [];
-        $total = 0;
-        if (Yii::$app->session['isLogin'])
+        // 菜单缓存
+        $cache = Yii::$app->cache;
+        $key = 'menu';
+        if (!$menu = $cache->get($key))
         {
-            $usermodel = User::find()->where('username = :name', [":name" => Yii::$app->session['loginname']])->one();
-            if (!empty($usermodel) && !empty($usermodel->userid))
-            {
-                $userid = $usermodel->userid;
-                $carts = Cart::find()->where('userid = :uid', [':uid' => $userid])->asArray()->all();
-                foreach ($carts as $k => $pro)
-                {
-                    $product = Product::find()->where('productid = :pid', [':pid' => $pro['productid']])->one();
-                    $data['products'][$k]['cover'] = $product->cover;
-                    $data['products'][$k]['title'] = $product->title;
-                    $data['products'][$k]['productnum'] = $pro['productnum'];
-                    $data['products'][$k]['price'] = $pro['price'];
-                    $data['products'][$k]['productid'] = $pro['productid'];
-                    $data['products'][$k]['cartid'] = $pro['cartid'];
-                    $total += $data['products'][$k]['price'] * $data['products'][$k]['productnum'];
-                }
-            }
+            $menu = Category::getMenu();
+            $cache->set($key, $menu, 3600 * 2);
         }
-        $data['total'] = $total;
+        $this->view->params['menu'] = $menu;
+        // 购物车缓存
+        $key = 'cart';
+        if (!$data = $cache->get($key))
+        {
+            $data = [];
+            $data['products'] = [];
+            $total = 0;
+            $userid = Yii::$app->user->id;
+            $carts = Cart::find()->where('userid = :uid', [':uid' => $userid])->asArray()->all();
+            foreach ($carts as $k => $pro)
+            {
+                $product = Product::find()->where('productid = :pid', [':pid' => $pro['productid']])->one();
+                $data['products'][$k]['cover'] = $product->cover;
+                $data['products'][$k]['title'] = $product->title;
+                $data['products'][$k]['productnum'] = $pro['productnum'];
+                $data['products'][$k]['price'] = $pro['price'];
+                $data['products'][$k]['productid'] = $pro['productid'];
+                $data['products'][$k]['cartid'] = $pro['cartid'];
+                $total += $data['products'][$k]['price'] * $data['products'][$k]['productnum'];
+            }
+            $data['total'] = $total;
+
+            $dep = new \yii\caching\DbDependency([
+                'sql' => 'select max(updatetime) from {{%cart}} where userid = :uid',
+                'params' => [':uid' => Yii::$app->user->id]
+            ]);
+            $cache->set($key, $data, 60, $dep);
+        }
         $this->view->params['cart'] = $data;
         $tui = Product::find()->where('istui = "1" and ison = "1"')->orderby('createtime desc')->limit(3)->all();
         $new = Product::find()->where('ison = "1"')->orderby('createtime desc')->limit(3)->all();
