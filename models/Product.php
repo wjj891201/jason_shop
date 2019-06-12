@@ -21,8 +21,8 @@ class Product extends ActiveRecord
                 'createdAtAttribute' => 'createtime',
                 'updatedAtAttribute' => 'updatetime',
                 'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['createtime', 'updatetime'],
-                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatetime'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createtime', 'updatetime'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updatetime'],
                 ]
             ]
         ];

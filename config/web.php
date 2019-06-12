@@ -8,6 +8,9 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'defaultRoute' => 'index',
+    'aliases' => [
+        '@doctorjason/mailerqueue' => '@vendor/doctorjason/mailerqueue/src'
+    ],
     'components' => [
         'redis' => [
             'class' => 'yii\redis\Connection',
@@ -76,9 +79,10 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            //'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'doctorjason\mailerqueue\MailerQueue',
             //redis 0-15
-            'db' => 1,
+            'db' => '1',
             'key' => 'mails',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
