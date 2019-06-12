@@ -21,4 +21,10 @@ class IndexController extends CommonController
         return $this->render("index", ['data' => $data]);
     }
 
+    public function actionError()
+    {
+        echo "404";
+        exit;
+    }
+
 }

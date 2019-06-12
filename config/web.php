@@ -122,14 +122,23 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-    /*
-      'urlManager' => [
-      'enablePrettyUrl' => true,
-      'showScriptName' => false,
-      'rules' => [
-      ],
-      ],
-     */
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'suffix' => '.html',
+            'rules' => [
+                '<controller:(index|cart|order)>' => '<controller>/index',
+                'auth' => 'member/auth',
+                'product-category-<cateid:\d+>' => 'product/index',
+                'product-<productid:\d+>' => 'product/detail',
+                'order-check-<orderid:\d+>' => 'order/check',
+                    [
+                    'pattern' => 'imoocback',
+                    'route' => '/admin/default/index',
+                    'suffix' => '.html'
+                ]
+            ],
+        ],
     ],
     'params' => array_merge($params, ['adminmenu' => $adminmenu]),
 ];
