@@ -14,6 +14,11 @@ $config = [
         '@doctorjason/mailerqueue' => '@vendor/doctorjason/mailerqueue/src'
     ],
     'components' => [
+        'asyncLog' => [
+            'class' => '\\app\\models\\Kafka',
+            'broker_list' => '127.0.0.1:9092',
+            'topic' => 'asynclog'
+        ],
         'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => '127.0.0.1',
@@ -55,6 +60,14 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                    [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['info'],
+                    'categories' => ['testkafka'],
+                    'logVars' => [],
+                    'exportInterval' => 1,
+                    'logFile' => '@app/runtime/logs/Kafka.log'
+                ]
             ],
         ],
         'db' => $db,

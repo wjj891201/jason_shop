@@ -12,6 +12,11 @@ $config = [
         '@doctorjason/mailerqueue' => '@vendor/doctorjason/mailerqueue/src'
     ],
     'components' => [
+        'asyncLog' => [
+            'class' => '\\app\\models\\Kafka',
+            'broker_list' => '127.0.0.1:9092',
+            'topic' => 'asynclog'
+        ],
         'session' => [
             'class' => 'yii\redis\Session',
             'redis' => [
